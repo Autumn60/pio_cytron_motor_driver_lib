@@ -12,33 +12,20 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-#include "cytron_motor_driver_lib/motor.hpp"
-
-#include <Arduino.h>
+#ifndef CYTRON_MOTOR_DRIVER_LIB__MOTOR_CONFIG_HPP_
+#define CYTRON_MOTOR_DRIVER_LIB__MOTOR_CONFIG_HPP_
 
 namespace cytron_motor_driver_lib
 {
-Motor::Motor(const int magnitude_pin, const int direction_pin)
-: magnitude_pin_(magnitude_pin), direction_pin_(direction_pin)
+struct MotorConfig
 {
-  analogWriteFrequency(magnitude_pin_, 20000);
-  pinMode(direction_pin_, OUTPUT);
-  stop();
-}
-
-Motor::Motor(const MotorConfig & config) : Motor(config.magnitude_pin, config.direction_pin)
-{
-}
-
-void Motor::drive(const double power)
-{
-  digitalWrite(direction_pin_, power < 0 ? HIGH : LOW);
-  analogWrite(magnitude_pin_, abs(power) * 255);
-}
-
-void Motor::stop()
-{
-  digitalWrite(direction_pin_, LOW);
-  analogWrite(magnitude_pin_, 0);
-}
+  MotorConfig(const int magnitude_pin, const int direction_pin)
+  : magnitude_pin(magnitude_pin), direction_pin(direction_pin)
+  {
+  }
+  int magnitude_pin;
+  int direction_pin;
+};  // struct MotorConfig
 }  // namespace cytron_motor_driver_lib
+
+#endif  // CYTRON_MOTOR_DRIVER_LIB__MOTOR_CONFIG_HPP_

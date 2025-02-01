@@ -15,6 +15,8 @@
 #ifndef CYTRON_MOTOR_DRIVER_LIB__MOTOR_HPP_
 #define CYTRON_MOTOR_DRIVER_LIB__MOTOR_HPP_
 
+#include "cytron_motor_driver_lib/motor_config.hpp"
+
 namespace cytron_motor_driver_lib
 {
 class Motor
@@ -23,12 +25,13 @@ public:
   /// @brief Construct a new Motor object
   /// @param magnitude_pin Number of the analog pin connected to the motor's magnitude input
   /// @param direction_pin Number of the digital pin connected to the motor's direction input
-  Motor(int magnitude_pin, int direction_pin);
+  Motor(const int magnitude_pin, const int direction_pin);
+  Motor(const MotorConfig & config);
   ~Motor() = default;
 
   /// @brief Drive the motor at a given power
   /// @param power Power to drive the motor at, in the range [-1.0, 1.0]
-  void drive(double power);
+  void drive(const double power);
 
   /// @brief Stop the motor
   void stop();
